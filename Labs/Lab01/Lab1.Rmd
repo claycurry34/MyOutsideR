@@ -35,4 +35,8 @@ head(ddt)
 
   a. The qualitative variables are RIVER and SPECIES
   b. The quantitative variables are MILE, LENGTH, WEIGHT, DDT
-
+  c. there are 3 unique values for species
+```{r}
+table(ddt$SPECIES)
+```
+  d. 
