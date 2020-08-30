@@ -1,0 +1,18 @@
+Labs will generally be due on Fridays -- the first week is an exception!
+
+All labs/assignments will need to be uploaded to CANVAS as knitted html documents.  No html? Then no marks!!
+
+Please note that for some of you,  getting up to speed with R will test your endurance and patience. Using all available helps will assist to prevent code exhaustion. 
+
+You MUST use R markdown for all work - labs, assignments, minilabs and projects.
+
+You can get help for all labs by:-
+
+examining the parallel code in lab?.R
+using help in RStudio -- see menu
+Use R help ?getwd etc on the command line
+Go to https://bookdown.org/rdpeng/rprogdatascience/ (Links to an external site.)
+Google
+Youtube
+Library -- free online books
+You will need to get GITHUB working through RStudio please see 
