@@ -141,3 +141,20 @@ fishcol=with(ddt,ifelse(SPECIES=="CCATFISH","Red",
 coplot(WEIGHT~LENGTH|SPECIES,data=ddt,col=fishcol)
 ```
   
+## Task 8
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+ddt %>% ggplot(aes(x=SPECIES,y=WEIGHT,fill=RIVER)) + geom_boxplot() + ggtitle("Clayton Curry")
+
+ddt %>% ggplot(aes(x=RIVER,y=LENGTH,fill=SPECIES)) + geom_violin() + ggtitle("Clayton Curry")
+
+fishcol=with(ddt,ifelse(SPECIES=="CCATFISH","Red",
+                        ifelse(SPECIES=="SMBUFFALO","Blue","Green")))
+
+ddt %>% ggplot(aes(x=WEIGHT,y=LENGTH,fill=SPECIES,fishcol))) + geom_point() + ggtitle("Clayton Curry")
+
+```
+
