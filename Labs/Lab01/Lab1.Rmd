@@ -121,5 +121,23 @@ boxplot(ddt$WEIGHT)
 ```{r}
 boxplot(ddt$LENGTH)
 ```
+
+## Task 7
+  a.
   
+```{r}
+rivcol=with(ddt, ifelse(RIVER=="FCM","Red",
+                        ifelse(RIVER=="LCM","Blue",
+                               ifelse(RIVER=="SCM","Green","Black"))))
+                    
+  coplot(WEIGHT~LENGTH|RIVER,data=ddt,col=rivcol)
+```
+
+  b.
+  
+```{r}
+fishcol=with(ddt,ifelse(SPECIES=="CCATFISH","Red",
+                        ifelse(SPECIES=="SMBUFFALO","Blue","Green")))
+coplot(WEIGHT~LENGTH|SPECIES,data=ddt,col=fishcol)
+```
   
