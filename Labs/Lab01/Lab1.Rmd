@@ -60,6 +60,30 @@ mean(ddt$LENGTH)
 sd(ddt$WEIGHT)
 ```
   Q3. 0
-  Q4.
   
+  Q4. 20/20 = 1
+  
+## Task 4
+  a. 
+```{r}
+table(ddt$RIVER)
+```
+  
+  b. 
+  
+```{r}
+barplot(table(ddt$RIVER), col = 1:4)
+```
+  
+  c.
+  
+```{r}
+table(ddt$RIVER,ddt$SPECIES)
+```
+  
+  d.
+  
+```{r}
+barplot(table(ddt$RIVER,ddt$SPECIES), col = 1:5,horiz = TRUE,legend.text = TRUE)
+```
   
