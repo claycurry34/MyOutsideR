@@ -40,3 +40,26 @@ head(ddt)
 table(ddt$SPECIES)
 ```
   d. 
+```{r}
+ddtLMB800=with(ddt, ddt[WEIGHT>800 & SPECIES=="LMBASS",])
+head(ddtLMB800)
+```
+  e.
+```{r}
+ddtSCM4=with(ddt, ddt[DDT>4.0 & RIVER=="SCM",])
+head(ddtSCM4)
+```
+
+## Clicker Questions
+  Q.1 Ans. 42.8125
+```{r}
+mean(ddt$LENGTH)
+```
+  Q.2 Ans. 376.5461
+```{r}
+sd(ddt$WEIGHT)
+```
+  Q3. 0
+  Q4.
+  
+  

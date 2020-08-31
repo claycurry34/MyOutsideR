@@ -1551,6 +1551,27 @@ head(ddt)</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li></li>
 </ol>
+<pre class="r"><code>ddtLMB800=with(ddt, ddt[WEIGHT&gt;800 &amp; SPECIES==&quot;LMBASS&quot;,])
+head(ddtLMB800)</code></pre>
+<pre><code>##     RIVER MILE SPECIES LENGTH WEIGHT DDT
+## 141   TRM  345  LMBASS     30    856 2.2
+## 144   TRM  345  LMBASS     36   1433 1.9</code></pre>
+<ol start="5" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>ddtSCM4=with(ddt, ddt[DDT&gt;4.0 &amp; RIVER==&quot;SCM&quot;,])
+head(ddtSCM4)</code></pre>
+<pre><code>##    RIVER MILE  SPECIES LENGTH WEIGHT DDT
+## 16   SCM    1 CCATFISH     45    984 9.1
+## 17   SCM    1 CCATFISH     43    965 7.8
+## 18   SCM    1 CCATFISH     45   1084 4.1</code></pre>
+</div>
+<div id="clicker-questions" class="section level2">
+<h2>Clicker Questions</h2>
+<p>Q.1</p>
+<pre class="r"><code>mean(ddt$LENGTH)</code></pre>
+<pre><code>## [1] 42.8125</code></pre>
+<p>Q.2</p>
 </div>
 </div>
 
