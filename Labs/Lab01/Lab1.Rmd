@@ -103,4 +103,23 @@ sp=with(ddt,table(RIVER))
   pie(sp,col=1:4)
 ```
   
+## Task 6
+  a.
+  
+```{r}
+boxplot(ddt$DDT)
+```
+
+  b. 
+  
+```{r}
+boxplot(ddt$WEIGHT)
+```
+
+  c.
+  
+```{r}
+boxplot(ddt$LENGTH)
+```
+  
   
