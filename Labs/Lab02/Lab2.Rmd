@@ -21,3 +21,93 @@ knitr::opts_chunk$set(echo = TRUE)
 getwd()
 ```
 
+## Task 2
+```{r}
+lab2 <- read.csv("EPAGAS.csv")
+head(lab2)
+```
+
+## Task 3
+  a. The vector 'mpg' stores many samples of fuel efficiency measurements (miles per gallon) 
+```{r}
+mpg=lab2$MPG
+```
+
+  b. The vector 'mpg_zvalues' stores z-score calculations for each matching entry in 'mpg'
+```{r}
+mpg_zvalues=(mpg-mean(mpg))/sd(mpg)
+```
+  
+  to verify that $\bar{z} = 0$ and $s_z^2 = 1$ we use the functions,
+```{r}
+round(mean(mpg_zvalues), digits=4) #rounding off eliminates floating-point uncertainty
+
+sd(mpg_zvalues)
+```
+  
+  as was to be demonstrated.
+  
+  
+  c. Possible outliers 3$\ge$Z-score$\ge$2 are reported as shown
+```{r}
+mpg_possibleOutliers=mpg[abs(mpg_zvalues)>=2 & abs(mpg_zvalues)<=3]
+mpg_possibleOutliers
+```
+  
+  d. Outliers by definition, Z-score$>$3, are reported as shown
+```{r}
+mpg_DefinedOutliers=mpg[abs(mpg_zvalues)>3]
+mpg_DefinedOutliers
+```
+  e. A dotplot displays the distribution of fuel efficiency measurements and is constructed as shown
+```{r}
+mycol = ifelse(abs(mpg_zvalues)>3, "Red",
+        ifelse(abs(mpg_zvalues)>=2 &abs(mpg_zvalues)<=3,"Blue", "Black"))  
+
+#Plot points with different plotting shapes        
+mypch = ifelse(abs(mpg_zvalues)>3, 20,
+        ifelse(abs(mpg_zvalues)>=2 &abs(mpg_zvalues)<=3,21, 22))
+
+#Use an installed library 
+# You will need to install the "lattice" package -- unless using the Lab computers
+#In R go to Packages   -- select "install packages" choose a mirror and then the "lattice" package
+# Now issue the following commands
+library(lattice)
+dotplot(mpg,col=mycol)
+
+```
+
+## Task 4
+
+a. We construct a boxplot to
+```{r}
+boxplot(mpg, notch = TRUE, xlab = "MPG", col = "black", main = "MPG Values", horizontal = TRUE)
+```
+
+### Chebyshev's theorem
+  This theorem states that for any quantitative distribution with standard deviation, $s =\sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}}$, that $\textit{at least} \hspace{4pt} (1-\frac{1}{k^2})$ of the distribution exists within $\pm ks, \hspace{2pt}k\in\mathbb{N},$ standard deviations of the arithmetic mean.
+```{r include = TRUE}
+stdev<-round(sd(mpg), digits = 2)
+
+sd2=mpg[abs(mpg_zvalues)<=2]
+
+mpg_mean=round(mean(mpg), digits = 2)
+
+```
+ 
+  With Chebyshev's theorem, we expect to observe that at least $(1- \frac{1}{2^2}) = .75 = 75\%$ of the fuel efficiency measurements fall within 2 standard deviations (`r 2*stdev` mpg) of the arithmetic mean, `r mpg_mean`. 
+  
+  Considering that `r length(sd2)` from a possible `r length(mpg)` measurements fall within two standard deviations of the mean, it is clear that Chebyshev wins!
+  
+### Emperical rule
+  
+  Exactly, the subset falling within two standard deviations constitutes `r 100*round(length(sd2)/length(mpg), digits = 3)`% $\frac{\text{# elements with Z-score < 2}{\text{size of sample space}}$ of our entire sample space. 
+  
+ The empirical rule predicts that approximately 95% of the measurements will lie within 2 standard deviations of their mean for a data set that is approximately mound-shaped and symmetric. This numerical prediction is almost identical to the subset within 2 standard deviations of the arithmetic mean of our sample. This reflects the fact that our distribution is both unimodal and has little to no skewness, as is shown in the histogram below.
+ 
+```{r}
+?hist
+```
+ 
+  
+Hence, the Empirical rule is appropriate (valid) for our distribution.

@@ -38,7 +38,7 @@ I[abs(z)>3]
 z[abs(z)>=2 & abs(z)<=3]
 
 #Find the values of I which are possible outliers
- I[abs(z)>=2 & abs(z)<=3]
+I[abs(z)>=2 & abs(z)<=3]
  
  
 
