@@ -1,0 +1,56 @@
+---
+title: "Assignment 1"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+A table depicting grade calculation for this class, including grading scale.
+```{r}
+GradCalc <- data.frame(c(15, 10, 10, 10, 5, 20, 30))
+GradCalc <- data.frame(GradCalc, c("Assignments", "Laboratories", "Projects (1/3 Project 1; 2/3 Project 2)", "In class Quizzes", "Canvas chapter quizzes", "Mid-Term Exams (x2)", "Final"))
+GradCalc <- data.frame(GradCalc, c("A", "B", "C", "D", "F", "", ""))
+GradCalc <- data.frame(GradCalc, c("90s","80s", "60s and 70s", "50s", "<50", "",""))
+
+knitr::kable(GradCalc, col.names = c("Weight %", "Component", "Letter", "Score"))
+```
+
+## Question 2
+
+
+### 2A.
+
+
+```{r}
+DDT<-read.csv("../../MyData/DDT.csv") # Reads in DDT
+m=with(DDT, as.numeric(factor(MILE))) # A, could also be m=as.numeric(DDT$MILE)
+n<-length(unique(m)) #B
+mileCol <- with(DDT, m, col = 1:n)
+coplot(LENGTH~WEIGHT|RIVER*SPECIES, data = DDT, col = mileCol)
+
+```
+
+
+###     2B.
+  The lower left 3 plots show the length of catfish vs weight across the rivers FCM, LCM, SCM, TRM.
+  
+###     2C.
+  The factor() function extracts the discrete values from DDT$MILE. The as.numeric() function converts factor() into a numerical vector, and with() evaluates as.numeric(factor()) in a local environment constructed from DDT.
+  
+###     2D.
+  The unique() function returns a vector containing a single instance of each mile observation. The length() function gets the length of this vector.
+  
+###     2E.
+  Plots are empty where the frequency of observations equals zero. Notice how LMBASS and SMBUFFALO were not observed in any river outside of TRM.
+
+```{r}
+DDT[DDT$RIVER!="TRM" & (DDT$SPECIES=="SMBUFFALO" | DDT$SPECIES=="LMBASS"),]
+```
+
