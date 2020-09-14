@@ -11,6 +11,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+8/15
+
 ## Question 1
 A table depicting grade calculation for this class, including grading scale.
 ```{r}
