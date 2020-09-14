@@ -38,19 +38,33 @@ coplot(LENGTH~WEIGHT|RIVER*SPECIES, data = DDT, col = mileCol)
 ```
 
 
-###     2B.
-  The lower left 3 plots show the length of catfish vs weight across the rivers FCM, LCM, SCM, TRM.
-  
-###     2C.
-  The factor() function extracts the discrete values from DDT$MILE. The as.numeric() function converts factor() into a numerical vector, and with() evaluates as.numeric(factor()) in a local environment constructed from DDT.
-  
-###     2D.
-  The unique() function returns a vector containing a single instance of each mile observation. The length() function gets the length of this vector.
-  
-###     2E.
-  Plots are empty where the frequency of observations equals zero. Notice how LMBASS and SMBUFFALO were not observed in any river outside of TRM.
+### 2B.
+The lower left 3 plots show the length of catfish vs weight across the rivers FCM, LCM, SCM, TRM.
+
+### 2C.
+The factor() function extracts the discrete values from DDT$MILE. The as.numeric() function converts factor() into a numerical vector, and with() evaluates as.numeric(factor()) in a local environment constructed from DDT.
+
+### 2D.
+The unique() function returns a vector containing a single instance of each mile observation. The length() function gets the length of this vector.
+
+### 2E.
+Plots are empty where the frequency of observations equals zero. Notice how LMBASS and SMBUFFALO were not observed in any river outside of TRM.
 
 ```{r}
 DDT[DDT$RIVER!="TRM" & (DDT$SPECIES=="SMBUFFALO" | DDT$SPECIES=="LMBASS"),]
 ```
+
+### 2F.
+The arithmetic mean:
+
+```{r}
+mean(with(DDT[DDT$RIVER=="FCM" & DDT$SPECIES=="CCATFISH",], DDT))
+```
+
+
+
+
+## Question 3
+
+### 
 
