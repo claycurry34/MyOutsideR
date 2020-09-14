@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-8/15
+9/15
 
 ## Question 1
 A table depicting grade calculation for this class, including grading scale.
@@ -189,7 +189,14 @@ pareto(l, mn = "Pareto barplot")
 ```
 
 ## Question 9
+Constructing some pie charts . . .
 
+```{r}
+
+pie(c(32,6,12), labels = c("Windows", "Explorer", "Office"), col=1:3, radius=1, main="Vulnerabilities by Target")
+
+pie(c(6,8,22,3,11), labels = c("Denial of Service", "Information Disclosure", "Remote code execution", "Spoofing", "Privilege elevation"), col=1:5, radius = 1, main = "Vulnerabilities by Type")
+```
 
 ## Question 10
 
