@@ -19,7 +19,7 @@ GradCalc <- data.frame(GradCalc, c("Assignments", "Laboratories", "Projects (1/3
 GradCalc <- data.frame(GradCalc, c("A", "B", "C", "D", "F", "", ""))
 GradCalc <- data.frame(GradCalc, c("90s","80s", "60s and 70s", "50s", "<50", "",""))
 
-knitr::kable(GradCalc, col.names = c("Weight %", "Component", "Letter", "Score"), label = "Grade Calculation")
+knitr::kable(GradCalc, col.names = c("Weight %", "Component", "Letter", "Score"))
 ```
 
 ## Question 2
@@ -107,3 +107,35 @@ Here are some examples: cell phone coverage in various cities, self-reported con
 
 ### Systematic Sampling
 The set $S \subset \Omega$ constitutes a **systematic sample** when each $\omega \in S$ is selected according to a regular rule, such as choosing at time intervals, or selecting every *k*th unit from a production. 
+
+## Question 5
+### MS 1.15
+Listing wells from 5 random samples. . .
+```{r}
+mtbe <- read.csv("../../MyData/MTBE.csv")
+size <- dim(mtbe)
+size=size[1]
+samp <- mtbe[sample(1:size, 5, replace=FALSE),]
+
+samp
+```
+
+### (a) Additional Problems
+
+#### (i) Removing rows with one or more NA
+
+
+```{r}
+mtbeo=na.omit(mtbe)
+depth <- mtbeo[mtbeo$Aquifier=="Bedrock",]$Depth
+mDepth = mean(depth)
+```
+
+
+#### (ii) Calculating standard Deviation
+```{r}
+BDepSD = sqrt(sum((depth-mDepth)^2)/(length(depth)-1))
+
+BDepSD
+```
+
