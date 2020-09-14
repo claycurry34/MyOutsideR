@@ -19,7 +19,7 @@ GradCalc <- data.frame(GradCalc, c("Assignments", "Laboratories", "Projects (1/3
 GradCalc <- data.frame(GradCalc, c("A", "B", "C", "D", "F", "", ""))
 GradCalc <- data.frame(GradCalc, c("90s","80s", "60s and 70s", "50s", "<50", "",""))
 
-knitr::kable(GradCalc, col.names = c("Weight %", "Component", "Letter", "Score"))
+knitr::kable(GradCalc, col.names = c("Weight %", "Component", "Letter", "Score"), label = "Grade Calculation")
 ```
 
 ## Question 2
@@ -55,7 +55,7 @@ DDT[DDT$RIVER!="TRM" & (DDT$SPECIES=="SMBUFFALO" | DDT$SPECIES=="LMBASS"),]
 ```
 
 ### 2F.
-The arithmetic mean:
+The arithmetic mean for DDT found in the sample of CCATFISH caught in the FCM river:
 
 ```{r}
 mean(with(DDT[DDT$RIVER=="FCM" & DDT$SPECIES=="CCATFISH",], DDT))
@@ -66,5 +66,44 @@ mean(with(DDT[DDT$RIVER=="FCM" & DDT$SPECIES=="CCATFISH",], DDT))
 
 ## Question 3
 
-### 
+### a.
+ratio
 
+### b.
+ratio
+
+### c.
+nominal
+
+### d.
+ratio
+
+### e.
+ordinal
+
+### f.
+ratio
+
+### g.
+nominal
+
+## Question 4
+Let $\Omega$ denote some data set containing (possibly infinite) experimental units characterizing some phenomenon of interest to us.
+
+### Simple Random Sampling
+The set $S \subset \Omega$ constitutes a **simple random sample** when every $\omega \in \Omega$ has an equal chance of being included in $S$.
+
+An example would be selecting data points at random from a hat while blindfolded. There are other, more sophisticated techniques.
+
+### Stratified Random Sampling
+The set $S \subset \Omega$ constitutes a **stratified random sample** when the $\Omega$ can be partitioned into two or more groups $G_1, G_2, \dots$ called *strata* where each $\omega \in G_i, \hspace{3pt}i=j$ shares some characteristic(s) with other elements in $G_i, \hspace{3pt}i=j$, which it does not share with elements in $\omega \in G_i, \hspace{3pt}i \ne j$.
+
+An example would be a pre-election poll in which a right-leaning candidate is only interested in the ranking of important of issues among right-leaning voters, namely which issues motivate right-leaning voters to show up to the polls. This candidate may also be interested in polling left-leaning voters to gather information on which issues are likely to cause left-leaning voters show up to the polls, avoiding discussions on these issues in public settings.
+
+### Cluster Sampling
+The set $S \subset \Omega$ constitutes a **cluster sample** when the $\Omega$ can be partitioned into two or more groups $G_1, G_2, \dots$ where each $\omega \in G_i, \hspace{3pt}i=j$ constitutes a group of physically related (sequentially, geographically, ...) units.
+
+Here are some examples: cell phone coverage in various cities, self-reported confidence levels in STEM programs according to gender, likely targets for software bugs for a program analyzed according to related modules modules.
+
+### Systematic Sampling
+The set $S \subset \Omega$ constitutes a **systematic sample** when each $\omega \in S$ is selected according to a regular rule, such as choosing at time intervals, or selecting every *k*th unit from a production. 

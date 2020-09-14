@@ -1523,7 +1523,7 @@ GradCalc &lt;- data.frame(GradCalc, c(&quot;Assignments&quot;, &quot;Laboratorie
 GradCalc &lt;- data.frame(GradCalc, c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;F&quot;, &quot;&quot;, &quot;&quot;))
 GradCalc &lt;- data.frame(GradCalc, c(&quot;90s&quot;,&quot;80s&quot;, &quot;60s and 70s&quot;, &quot;50s&quot;, &quot;&lt;50&quot;, &quot;&quot;,&quot;&quot;))
 
-knitr::kable(GradCalc, col.names = c(&quot;Weight %&quot;, &quot;Component&quot;, &quot;Letter&quot;, &quot;Score&quot;))</code></pre>
+knitr::kable(GradCalc, col.names = c(&quot;Weight %&quot;, &quot;Component&quot;, &quot;Letter&quot;, &quot;Score&quot;), label = &quot;Grade Calculation&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1611,15 +1611,63 @@ coplot(LENGTH~WEIGHT|RIVER*SPECIES, data = DDT, col = mileCol)</code></pre>
 </div>
 <div id="f." class="section level3">
 <h3>2F.</h3>
-<p>The arithmetic mean:</p>
+<p>The arithmetic mean for DDT found in the sample of CCATFISH caught in the FCM river:</p>
 <pre class="r"><code>mean(with(DDT[DDT$RIVER==&quot;FCM&quot; &amp; DDT$SPECIES==&quot;CCATFISH&quot;,], DDT))</code></pre>
 <pre><code>## [1] 45</code></pre>
 </div>
 </div>
 <div id="question-3" class="section level2">
 <h2>Question 3</h2>
-<div id="section" class="section level3">
-<h3></h3>
+<div id="a.-1" class="section level3">
+<h3>a.</h3>
+<p>ratio</p>
+</div>
+<div id="b.-1" class="section level3">
+<h3>b.</h3>
+<p>ratio</p>
+</div>
+<div id="c.-1" class="section level3">
+<h3>c.</h3>
+<p>nominal</p>
+</div>
+<div id="d.-1" class="section level3">
+<h3>d.</h3>
+<p>ratio</p>
+</div>
+<div id="e.-1" class="section level3">
+<h3>e.</h3>
+<p>ordinal</p>
+</div>
+<div id="f.-1" class="section level3">
+<h3>f.</h3>
+<p>ratio</p>
+</div>
+<div id="g." class="section level3">
+<h3>g.</h3>
+<p>nominal</p>
+</div>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<p>Let <span class="math inline">\(\Omega\)</span> denote some data set containing (possibly infinite) experimental units characterizing some phenomenon of interest to us.</p>
+<div id="simple-random-sampling" class="section level3">
+<h3>Simple Random Sampling</h3>
+<p>The set <span class="math inline">\(S \subset \Omega\)</span> constitutes a <strong>simple random sample</strong> when every <span class="math inline">\(\omega \in \Omega\)</span> has an equal chance of being included in <span class="math inline">\(S\)</span>.</p>
+<p>An example would be selecting data points at random from a hat while blindfolded. There are other, more sophisticated techniques.</p>
+</div>
+<div id="stratified-random-sampling" class="section level3">
+<h3>Stratified Random Sampling</h3>
+<p>The set <span class="math inline">\(S \subset \Omega\)</span> constitutes a <strong>stratified random sample</strong> when the <span class="math inline">\(\Omega\)</span> can be partitioned into two or more groups <span class="math inline">\(G_1, G_2, \dots\)</span> called <em>strata</em> where each <span class="math inline">\(\omega \in G_i, \hspace{3pt}i=j\)</span> shares some characteristic(s) with other elements in <span class="math inline">\(G_i, \hspace{3pt}i=j\)</span>, which it does not share with elements in <span class="math inline">\(\omega \in G_i, \hspace{3pt}i \ne j\)</span>.</p>
+<p>An example would be a pre-election poll in which a right-leaning candidate is only interested in the ranking of important of issues among right-leaning voters, namely which issues motivate right-leaning voters to show up to the polls. This candidate may also be interested in polling left-leaning voters to gather information on which issues are likely to cause left-leaning voters show up to the polls, avoiding discussions on these issues in public settings.</p>
+</div>
+<div id="cluster-sampling" class="section level3">
+<h3>Cluster Sampling</h3>
+<p>The set <span class="math inline">\(S \subset \Omega\)</span> constitutes a <strong>cluster sample</strong> when the <span class="math inline">\(\Omega\)</span> can be partitioned into two or more groups <span class="math inline">\(G_1, G_2, \dots\)</span> where each <span class="math inline">\(\omega \in G_i, \hspace{3pt}i=j\)</span> constitutes a group of physically related (sequentially, geographically, …) units.</p>
+<p>Here are some examples: cell phone coverage in various cities, self-reported confidence levels in STEM programs according to gender, likely targets for software bugs for a program analyzed according to related modules modules.</p>
+</div>
+<div id="systematic-sampling" class="section level3">
+<h3>Systematic Sampling</h3>
+<p>The set <span class="math inline">\(S \subset \Omega\)</span> constitutes a <strong>systematic sample</strong> when each <span class="math inline">\(\omega \in S\)</span> is selected according to a regular rule, such as choosing at time intervals, or selecting every <em>k</em>th unit from a production.</p>
 </div>
 </div>
 
