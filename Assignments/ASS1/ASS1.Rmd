@@ -135,7 +135,71 @@ mDepth = mean(depth)
 #### (ii) Calculating standard Deviation
 ```{r}
 BDepSD = sqrt(sum((depth-mDepth)^2)/(length(depth)-1))
-
 BDepSD
 ```
+
+## Question 6
+### MS 1.16
+
+```{r}
+EARTHQUAKE <- readxl::read_xls("../../MyData/0-XLS/EARTHQUAKE.XLS")
+ind <- sample(1:2929, 30, replace=FALSE)
+eq <- EARTHQUAKE[ind,]
+```
+
+### additional problems
+
+#### (i) plotting . . .
+
+```{r}
+plot(ts(eq$MAGNITUDE))
+```
+
+#### (ii) median . . .
+
+```{r}
+median(eq$MAGNITUDE)
+```
+
+
+## Question 7. 
+
+### (a)
+
+Fish specimen were collected at each of the river and tributary creek locations. These locations represent the different trata for the study.
+
+### (b)
+
+The target population is of all fish in the Tennessee River and its tributaries.
+
+### (c)
+
+The qualitative variables are RIVER and SPECIES.
+
+## Question 8
+
+```{r}
+freq=c(15,8,63,20)
+RL=c("None", "Both", "Legs0", "Wheels0")
+l=rep(RL,freq)
+source('C:/Dev/R_Projects/MATH4753CURR0011/R/pareto.R')
+pareto(l, mn = "Pareto barplot")
+```
+
+## Question 9
+
+
+## Question 10
+
+## Question 11
+
+## Question 12
+
+## Question 13
+
+## Question 14
+
+## Question 15
+
+
 
