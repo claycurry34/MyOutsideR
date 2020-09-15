@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Completed 9/15 questions
+Completed 14/15 questions
 
 ## Question 1
 A table depicting grade calculation for this class, including grading scale.
@@ -208,17 +208,190 @@ rtab=tab/sum(tab)
 pie3D(rtab,labels=list("OK","Defective"),main="pie plot of SWD")
 ```
 
-
-
 ## Question 11
 
+### A & B.
+```{r}
+VOLTAGE=read.csv("../../MyData/VOLTAGE.csv")
+inc=(10.6-8.0)/9
+cl=seq(8.0,10.6,by=inc)
+
+old<-VOLTAGE[VOLTAGE$LOCATION=="OLD",]$VOLTAGE
+oldC=cut(old,breaks=cl,ord=TRUE)
+foldC <- as.data.frame(table(oldC))$Freq
+foldC <- foldC/length(old)
+
+barplot(foldC, space=0, main="Frequency Histogram (OLD)", names.arg = c("8.0-8.29","8.29-8.58","8.58-8.87","8.87-9.16", "9.16-9.44", "9.44-9.73", "9.73-10.0", "10.0-10.3", "10.3-10.6"),ylab ="relative frequency", xlab="voltage bin", ylim=c(0,0.8), cex.names = 0.7)
+
+stem(as.numeric(oldC))
+```
+
+### c.
+```{r}
+new<-VOLTAGE[VOLTAGE$LOCATION=="NEW",]
+new$VOLTAGE->vtn
+vtn
+max(vtn)
+min(vtn)
+lept<-min(vtn)-0.05
+rept<-max(vtn)+0.05
+rnge<-rept-lept
+inc<-rnge/9
+inc
+seq(lept, rept,by=inc)->cl
+cl
+cvtn<-cut(vtn,breaks=cl)
+new.tab=table(cvtn)
+barplot(new.tab,space=0,main="Frequency Histogram(NEW)",las=2)
+hist(vtn,nclass=10)
+
+
+barplot(foldC, space=0, main="Frequency Histogram (OLD)", names.arg = c("8.0-8.29","8.29-8.58","8.58-8.87","8.87-9.16", "9.16-9.44", "9.44-9.73", "9.73-10.0", "10.0-10.3", "10.3-10.6"),ylab ="relative frequency", xlab="voltage bin", ylim=c(0,0.8), cex.names = 0.7)
+
+```
+
+### d.
+In comparison to the old histogram, the new, locally-established manufacturing contains much greater variation about the mean. This means that a smaller portion of the voltage readings can be considered "good".
+
+### e.
+The preferred measure of central tendency is the arithmetic mean. This measure allows us to calculate the standard deviation from the mean.
+
+```{r}
+
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+new<-VOLTAGE[VOLTAGE$LOCATION=="NEW",]$VOLTAGE
+mean(new)
+median(new)
+getmode(new)
+
+
+old<-VOLTAGE[VOLTAGE$LOCATION=="OLD",]$VOLTAGE
+mean(old)
+median(old)
+getmode(old)
+
+
+
+```
+
+### f.
+```{r}
+z = (10.5-mean(old))/sd(old)
+z
+```
+
+### g.
+```{r}
+z = (10.5-mean(new))/sd(new)
+z
+```
+
+### h.
+10.50 is much more likely to occur at the old location.
+
+### i.
+4 outliers were detected constructing a boxplot . . .
+
+```{r}
+boxplot(old, notch = TRUE)
+```
+
+### j.
+
+```{r}
+oldZ <- (old-mean(old))/sd(old)
+
+old_possibleOutliers=old[abs(oldZ)>=2 & abs(oldZ)<=3]
+old_possibleOutliers
+
+old_definedOutliers=old[abs(oldZ)>3]
+old_definedOutliers
+
+```
+
+### k.
+
+
+```{r}
+boxplot(new, notch = TRUE)
+```
+
+### l.
+
+```{r}
+newZ <- (new-mean(new))/sd(new)
+
+new_possibleOutliers=new[abs(newZ)>=2 & abs(newZ)<=3]
+new_possibleOutliers
+
+new_definedOutliers=new[abs(newZ)>3]
+new_definedOutliers
+
+```
+
+### m.
+
+```{r}
+library(ggplot2)
+
+ggplot(VOLTAGE, aes(x=LOCATION,y=VOLTAGE)) + geom_boxplot() + ggtitle("Old and New Locations")
+```
+
 ## Question 12
+```{r}
+ROUGHPIPE<-readxl::read_xls("../../MyData/0-XLS/ROUGHPIPE.XLS")
+boxplot(ROUGHPIPE$ROUGH)
+mean(ROUGHPIPE$ROUGH)
+sd(ROUGHPIPE$ROUGH)
+
+```
+
+As the boxplot shows, the data is largely spread about the mean and median. Therefore, the best distribution estimator is Chebyshev's rule which says $(1- \frac{1}{5^2}) = .96 = 96\%$ percent of the distribution lies within 5 standard deviations of the mean. Therefore an interval guaranteed to contain 95% of the distribution would be (0, ```r mean(ROUGHPIPE$ROUGH)+5*sd(ROUGHPIPE$ROUGH)```).
+
+
 
 ## Question 13
 
 ## Question 14
+### a.
+```{r}
+GALAXY2<-readxl::read_xls("../../MyData/0-XLS/GALAXY2.xls")
+hist(GALAXY2$VELOCITY, breaks = seq(18000,25000,by=350))
+```
+
+### b.
+The data shows a bi-modal distribution with little to no skewness in either distribution. Since many observations converge towards two different clusters, the evidence is strong that astronomers are measuring the velocities of two different bodies.
+
+### c.
+```{r}
+G1 = GALAXY2[GALAXY2$VELOCITY<21500,]$VELOCITY
+G2 = GALAXY2[GALAXY2$VELOCITY>=21500,]$VELOCITY
+```
+The mean velocity and standard deviation of the first cluster, A1775A, is $```r mean(G1)```$ and ```r sd(G1)```.
+The mean velocity and standard deviation of the second cluster, A1775B, is $```r mean(G2)```$ and ```r sd(G2)```.
+
+### d.
+Galaxy A. Based on the numerical descriptive measures. An observation of 20000 has a Z-score in cluster A1775A of $z_A = $ ```r round((20000-mean(G1))/sd(G1), 2)``` and has a z-score in cluster A1775B $z_B = $ ```r round((20000-mean(G2))/sd(G2), 2)```.
+
+Since $z_B$ is an outlier by definition, the observation certainly does not belong to A1775B.
+Since $z_A$ tells us that 20000 is hardly 1 standard deviation from the mean, this observation is highly likely to belong to A1775A.
+
 
 ## Question 15
+```{r}
+
+library(ggplot2)
+ddt <- read.csv("../../MyData/DDT.csv")
+
+fishcol=with(ddt,ifelse(SPECIES=="CCATFISH","Red",
+                        ifelse(SPECIES=="SMBUFFALO","Blue","Green")))
+ggplot(ddt, aes(x=RIVER,y=LENGTH,fill=SPECIES)) + geom_boxplot()
+```
+
 
 
 
