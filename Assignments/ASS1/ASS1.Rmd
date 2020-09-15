@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-9/15
+Completed 9/15 questions
 
 ## Question 1
 A table depicting grade calculation for this class, including grading scale.
@@ -199,6 +199,16 @@ pie(c(6,8,22,3,11), labels = c("Denial of Service", "Information Disclosure", "R
 ```
 
 ## Question 10
+
+```{r}
+swd=read.csv("../../MyData/SWDEFECTS.csv", header=TRUE)
+library(plotrix)
+tab=table(swd$defect)
+rtab=tab/sum(tab)
+pie3D(rtab,labels=list("OK","Defective"),main="pie plot of SWD")
+```
+
+
 
 ## Question 11
 
