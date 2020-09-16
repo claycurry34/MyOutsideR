@@ -12,22 +12,131 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+# Task 1
+```{r}
+getwd()
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+# Task 2
+```{r}
+spruce.df <- read.csv("SPRUCE.csv")
+tail(spruce.df)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Task 3
+
+## Lowess smoother scatter plot
+```{r}
+library(s20x)
+trendscatter(Height~BHDiameter, data = spruce.df, f = 0.5)
+```
+
+## Make a linear model
+```{r}
+spruce.lm = with(spruce.df, lm(Height~BHDiameter))
+```
+
+## Find residuals
+```{r}
+height.res = residuals(spruce.lm)
+```
+
+## Find fitted values
+```{r}
+height.fit = fitted(spruce.lm)
+```
+
+## Residuals vs. Fitted
+```{r}
+plot(y = height.res, x = height.fit)
+```
+
+## Residuals vs. Fitted using Trendscatter
+```{r}
+trendscatter(y=height.res, x = height.fit)
+```
+
+## Shape of Plot
+The plot resembles a hyperbolic
+## Residual plot
+
+## Check normality
+```{r}
+normcheck(spruce.lm, shapiro.wilk = TRUE)
+```
+
+## P-Value and Null-Hypothesis
+
+## Evaluating the model
+
+## Conclusion
+
+# Task 4
+
+## Fit a quadratic
+
+## Make a fresh plot and add quadratic curve
+
+## Make quad. fit
+
+## Check normality
+
+## Conclusion
+
+# Task 5
+
+## Summarize quad.lm
+
+## Beta hat values
+
+## Interval estimates
+
+## Equation of fitted line
+
+## Height predictions
+
+## Comparison
+
+## Multiple R-squared
+
+## Adjusting R-squared
+
+## Meaning of multiple R-squared
+
+## Model with most variability
+
+## anova
+
+## TSS, MSS, RSS
+
+### TSS
+
+### MSS
+
+### RSS
+
+## MSS/TSS
+
+# Task 6
+
+## Cook's Plot
+
+## What Cook's distance is
+
+## quad2.lm
+
+## quad2.lm summary
+
+## Comparison with quad.lm
+
+## Conclusion
+
+# Task 7
+
+## Proof
+
+## Reproducing plot
+
+# Task 8
+
+# Extra
