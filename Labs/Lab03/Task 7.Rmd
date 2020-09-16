@@ -35,34 +35,27 @@ fin.df = read.csv("FINTUBES.csv")
 inputPanel(
   
   
-  selectInput("plotg", "Choose plot type",
-      list(`points` = c("g", "gheat", "gratio"),
-           `point size` = c("gsheat", "gsratio")
+  selectInput("plotg", "Select Plot Type",
+      list(`selectInput` = c("Linear Regression", "Points Alone", "Line Segments")
       )
     )
 )
 
 renderPlot({
   
- g = ggplot(fin.df, aes(x = RATIO, y = HEAT)) + geom_point() 
+ g = ggplot(spruce.df, aes(x = BHDiameter, y = Height)) + geom_point() 
 
- gh = g + geom_point(aes(col = HEAT)) 
+ glr = g + geom_point() + geom_line() + geom_smooth(method="lm")
  
- gr = g + geom_point(aes(col = RATIO)) 
+ gls = g + geom_point() + geom_line()
  
- gsh =  g + geom_point(aes(size = HEAT, col = HEAT))
  
- gsr = g + geom_point(aes(size = RATIO, col = RATIO))
-  
- if(input$plotg == "g") print(g)
+ if(input$plotg == "Points Alone")   print(g)
  
- if(input$plotg == "gheat")   print(gh)
+ if(input$plotg == "Linear Regression")   print(glr)
  
- if(input$plotg == "gsratio")   print(gsr)
+ if(input$plotg == "Line Segments")   print(gls)
  
- if(input$plotg == "gsheat")   print(gsh)
- 
- if(input$plotg == "gratio")   print(gr)
  
    
 })
