@@ -1,7 +1,7 @@
 ---
 title: "Lab 3: MATH 4753"
-author: "Your name"
-date: "January 28, 2019"
+author: "Clay Curry"
+date: "`r Sys.Date()`"
 output: 
   html_document:
     toc: yes
@@ -23,28 +23,57 @@ getwd()
 ```
 
 # Task 2
+**Reading in data set relating heights of spruce trees to breast height diameter. . .**
 
 ```{r}
 spruce.df = read.csv("SPRUCE.csv")
 head(spruce.df)
 ```
 
-
-
-# Me
+# Task 3
+**Create a scatter plot to view the relationship between Tree Height and BHDiameter**
 
 ```{r}
-obj = lm(Height~BHDiameter, data = spruce.df)
-summary(obj)
-plot(Height~BHDiameter, data = spruce.df)
-abline(obj)
-library(s20x)
-trendscatter(Height~BHDiameter,f=0.7, data=spruce.df)
+plot(Height~BHDiameter, main = "Tree Height vs BHDiameter", xlab = "Breast Height Diameter (cm)", ylab = "Height of Spruce Tree (m)", pch = 21, bg = "blue", cex = 1.2, xlim = c(0, max(BHDiameter) *1.1), ylim = c(0, max(Height) * 1.1), data = spruce.df)
 ```
 
+***Does there appear to be a straight line relationship?***
+In the right half of the plot, there does seem to be a linear relationship. However, for smaller values of BHD, it appears the data set deviates significantly from a linear model. Modeling the entire data set would require some sort of curve.
+
+
+
+
+```{r}
+library(s20x)
+lo = layout(matrix(1:3, nr=3, nc = 1, byrow = TRUE))
+tsone = trendscatter(Height~BHDiameter, f=0.5, data = spruce.df)
+tsone = trendscatter(Height~BHDiameter, f=0.6, data = spruce.df)
+tsone = trendscatter(Height~BHDiameter, f=0.7, data = spruce.df)
+```
+
+**creating a linear model for spruce.df**
+
+```{r}
+spruce.lm = with(spruce.df, lm(Height~BHDiameter))
+```
+
+Make a new scatter plot and add the least squares regression line
+
+```{r}
+lo = layout(1)
+with(spruce.df,
+     plot(Height~BHDiameter, main = "Tree Height vs BH Diameter", xlab = "Breast Height Diameter (cm)", ylab = "Tree Height (m)", bg = "Blue", pch=21, cex=1.2, xlim = c(0, max(BHDiameter) *1.1), ylim = c(0, max(Height) * 1.1)
+          )
+     )
+
+abline(spruce.lm)
+```
+
+**Comment on the graph, is a straight line appropriate? Consider the smoother curve also.**
 
 
 #Task 7
+
 This is how you place images in RMD documents
 
 <center>
