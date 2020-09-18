@@ -19,7 +19,7 @@ getwd()
 
 # Task 2
 ```{r}
-spruce.df <- read.csv("SPRUCE.csv")
+spruce.df <- read.table("SPRUCE.csv", header = TRUE, sep = ",")
 tail(spruce.df)
 ```
 
@@ -28,36 +28,37 @@ tail(spruce.df)
 ## Lowess smoother scatter plot
 ```{r}
 library(s20x)
-trendscatter(Height~BHDiameter, data = spruce.df, f = 0.5)
+trendscatter(Height~BHDiameter, data = spruce.df, f = 0.5, main = "Lowess smoother scatter plot (Ht vs BHD)")
 ```
 
-## Make a linear model
+## Make a linear model object
 ```{r}
 spruce.lm = with(spruce.df, lm(Height~BHDiameter))
 ```
 
-## Find residuals
+## Find residuals using residuals(), put them into an object called height.res
 ```{r}
 height.res = residuals(spruce.lm)
 ```
 
-## Find fitted values
+## Find the fitted values using fitted(), and place them in an object called height.fit.
 ```{r}
 height.fit = fitted(spruce.lm)
 ```
 
-## Residuals vs. Fitted
+## Plot the Residuals vs. Fitted
 ```{r}
-plot(y = height.res, x = height.fit)
+plot(x = height.fit, y = height.res, xlim = c(5, 30))
 ```
 
-## Residuals vs. Fitted using Trendscatter
+## Plot the residuals vs fitted using trendscatter()
 ```{r}
-trendscatter(y=height.res, x = height.fit)
+trendscatter(x = height.fit, y=height.res)
 ```
 
 ## Shape of Plot
 The plot resembles a hyperbolic
+
 ## Residual plot
 
 ## Check normality
