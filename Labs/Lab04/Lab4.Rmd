@@ -67,10 +67,18 @@ normcheck(spruce.lm, shapiro.wilk = TRUE)
 
 ## P-Value and Null-Hypothesis
 
+Because the p=value is greater than 0.05, we accept the null hypothesis which says our error is distributed normally.
+
+According to the Lab 4 task sheet, if the model works well, we should expect residuals that are approximately normal in distribution with mean 0 and constant variance.
+
 ## Evaluating the model
+```{r}
+round(mean(height.res), 4)
+```
 
+The mean is 0 for the residuals.
 ## Conclusion
-
+Based on the ashape of the plot of residuals vs. fitted height values, we should not use a straight line model. The shape has a distinct quadratic shape. We are finding 'signal' when we should just be finding 'noise'. Because this model does not properly fit the data, we must adjust our model.
 # Task 4
 
 ## Fit a quadratic
