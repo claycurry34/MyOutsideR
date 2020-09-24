@@ -1,0 +1,348 @@
+---
+title: "Lab4"
+author: "Clayton Curry"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Task 1
+```{r}
+getwd()
+```
+
+# Task 2
+```{r}
+spruce.df <- read.table("SPRUCE.csv", header = TRUE, sep = ",")
+tail(spruce.df)
+```
+
+# Task 3
+
+## Lowess smoother scatter plot
+```{r}
+library(s20x)
+trendscatter(Height~BHDiameter, data = spruce.df, f = 0.5, main = "Lowess smoother scatter plot (Ht vs BHD)")
+```
+
+## Make a linear model object
+```{r}
+spruce.lm = with(spruce.df, lm(Height~BHDiameter))
+```
+
+## Find residuals using residuals(), put them into an object called height.res
+```{r}
+height.res = residuals(spruce.lm)
+```
+
+## Find the fitted values using fitted(), and place them in an object called height.fit.
+```{r}
+height.fit = fitted(spruce.lm)
+```
+
+## Plot the Residuals vs. Fitted
+```{r}
+plot(x = height.fit, y = height.res)
+```
+
+## Plot the residuals vs fitted using trendscatter()
+```{r}
+trendscatter(x = height.fit, y=height.res)
+```
+
+## Shape of Plot
+The plot resembles a hyperbolic
+
+## Residual plot
+```{r}
+plot(spruce.lm, which = 1)
+```
+
+## Check normality
+```{r}
+normcheck(spruce.lm, shapiro.wilk = TRUE)
+```
+
+## P-Value and Null-Hypothesis
+
+Because the p=value is greater than 0.05, we accept the null hypothesis which says our error is distributed normally.
+
+Lab 4 manual states, "we should expect that the residuals are approximately Normal in distribution if the model works well with the data," which is what the Shapiro-Wilk test shows.
+
+
+## Evaluating the model
+```{r}
+round(mean(height.res), 4)
+```
+
+The mean is 0 for the residuals.
+## Conclusion
+Given the distribution of residuals about the fitted-line model is normal, we have strong evidence to conclude that we should not use a straight line model.
+
+# Task 4
+
+## Fit a quadratic
+```{r}
+quad.lm = lm(Height~BHDiameter+I(BHDiameter^2), data = spruce.df)
+
+summary(quad.lm)
+```
+
+## Make a fresh plot and add quadratic curve
+```{r}
+coef(quad.lm)
+plot(spruce.df)
+
+myplot = function(x)
+{
+  quad.lm$coef[1]  + quad.lm$coef[2] * x + quad.lm$coef[3] * x ^ 2
+}
+
+curve(myplot, lwd = 2, col = "steelblue", add = TRUE)
+```
+
+
+## Make quad. fit
+```{r}
+quad.fit = fitted(quad.lm)
+```
+
+## Residuals vs. Fitted
+```{r}
+plot(quad.lm, which = 1)
+```
+
+
+## Check normality
+```{r}
+normcheck(quad.lm, shapiro.wilk = TRUE)
+```
+
+## Conclusion
+
+The p-value is 0.684. Therefore, we accept the null hypothesis.
+
+Based on the residuals vs. fitted values plot from quad.lm, there is not much of a trend. Also, the residuals go from about -4 to 4. We have achieved a level of "noise" with no extra signal.
+
+# Task 5
+
+## Summarize quad.lm
+```{r}
+summary(quad.lm)
+```
+
+## Beta hat values
+$$
+\hat{\beta}_0 = 0.860896, \hat{\beta_1}=1.469592, \hat{\beta_2} = -0.027457
+$$
+
+## Interval estimates
+```{r}
+ciReg(quad.lm)
+```
+
+
+## Equation of fitted line
+$$
+\hat{Height}= 0.860896+1.469592x -0.027457x^2
+$$
+## Height predictions
+```{r}
+predict(quad.lm, data.frame(BHDiameter = c(15,18,20)))
+```
+
+## Comparison
+```{r}
+predict(spruce.lm, data.frame(BHDiameter = c(15,18,20)))
+```
+
+## Multiple R-squared
+
+### quad.lm
+```{r}
+summary(quad.lm)$r.squared
+```
+
+
+$$
+R^2 = 0.7741266
+$$
+
+### spruce.lm
+```{r}
+summary(spruce.lm)$r.squared
+```
+
+$$
+R^2=0.6569146
+$$
+
+## Adjusting R-squared
+```{r}
+summary(quad.lm)$adj.r.squared
+summary(spruce.lm)$adj.r.squared
+```
+
+## Meaning of multiple R-squared
+The adjusted R-squared inducates how well data fits a model. Variables for such detemination include the variablility of residuals and the number of data points.
+
+Bigger $R^2$ = better model. Hence, based on the R-squared values, quad.lm is a better fit.
+## Model with most variability
+```{r}
+summary(quad.lm)$r.squared
+summary(quad.lm)$adj.r.squared
+summary(spruce.lm)$r.squared
+summary(spruce.lm)$adj.r.squared
+```
+
+## anova
+```{r}
+anova(spruce.lm)
+anova(quad.lm)
+anova(spruce.lm, quad.lm)
+```
+The quad.lm better suits the data, due to its lower RSS than spruce.lm.
+
+## TSS, MSS, RSS
+```{r}
+height.qfit = fitted(quad.lm)
+```
+
+### TSS
+```{r}
+TSS = with(spruce.df, sum((Height - mean(Height))^2))
+TSS
+```
+
+### MSS
+```{r}
+MSS = with(spruce.df, sum((height.qfit - mean(Height))^2))
+MSS
+```
+
+### RSS
+```{r}
+RSS = with(spruce.df, sum((Height - height.qfit) ^ 2))
+RSS
+```
+
+
+## MSS/TSS
+```{r}
+MSS/TSS
+```
+
+
+
+# Task 6
+
+## Cook's Plot
+```{r}
+cooks20x(quad.lm, main = "Cook's Distance plot for quad.lm")
+
+```
+
+## What Cook's distance is
+
+It is important to consider the highest point indicated by Cook's plot given that the score indicates the datum having the highest impact on the estimation of parameters of a population. 
+
+If this datum is unreliable, then the whole analysis will be skewed.
+
+
+
+## quad2.lm
+```{r}
+
+quad2.lm = lm(Height~BHDiameter + I(BHDiameter ^ 2), data = spruce.df[-24,])
+```
+
+## quad2.lm summary
+```{r}
+summary(quad2.lm)
+```
+
+## Comparison with quad.lm
+```{r}
+summary(quad.lm)
+```
+
+## Conclusion
+
+Between the two linear models, quad2.lm has smaller median, min, and max residuals. Given the large difference between the medians of quad2.lm and quad.lm, it is highly likely that the data set is being skewed, noting that the median of a data set tends to be a resilliant indicator of the central tendency of the data set.
+
+By removing the datum, the R-squared value went up, meaning that the model better fits the data.
+
+# Task 7
+
+## Proof
+Given two lines containing the point $x_k$,
+$$
+\begin{eqnarray}
+\ell_1: y &=& \beta_0 + \beta_1x \newline
+\ell_2: y &=& \beta_0 + \delta+(\beta_1+\beta_2)x
+\end{eqnarray}
+$$
+We have the following equality since both lines contain $x_i$,
+$$
+\beta_0 + \beta_1x_k = \beta_0 + \delta+(\beta_1+\beta_2)x_k
+$$
+Distributing $x_k$ on the right hand side and by rearrangement,
+$$
+\beta_0+\beta_1x_k=\beta_0+\delta+\beta_1x_k+\beta_2x_k \implies 0=\delta+\beta_2x_k \implies \delta=-\beta_2x_k
+$$
+
+substituting back to $\ell_2$ for any x,
+
+$$
+y = \beta_0 + \delta+(\beta_1+\beta_2)x \implies y = \beta_0 -\beta_2x_k +(\beta_1+\beta_2)x
+ \implies y = \beta_0 + \beta_1x + \beta_2(x-x_k)
+$$
+
+We can now use an indicator function to allow our function to know where it should and should not include the adjustment.
+
+$$
+y = \beta_0 + \beta_1x + \beta_2(x-x_k)I(x > x_k)  \hspace{6pt} \text{where} \hspace{6pt}
+\begin{equation*}
+I(x)=\begin{cases}
+          1 \quad &\text{if} \, \hspace{4pt} x > x_k \\
+          0 \quad &\text{if} \, \hspace{4pt} x \le x_k\\
+     \end{cases}
+\end{equation*}
+$$
+
+
+## Reproducing plot
+```{r}
+sp2.df = within(spruce.df, X<-(BHDiameter - 18)*(BHDiameter > 18))
+
+sp2.df
+
+lmp = lm(Height~BHDiameter + X, data = sp2.df)
+tmp = summary(lmp)
+names(lmp)
+
+myff = function(x, coef){
+  coef[1] + coef[2] * (x) + coef[3] * (x-18) * (x-18>0) 
+}
+plot(spruce.df, main = "Piecewise Regression")
+myff(0, coef = tmp$coefficients[,"Estimate"])
+curve(expr = myff(x, coef = tmp$coefficients[,"Estimate"]), add = TRUE, lwd = 2, col = "Blue")
+abline(v = 18)
+text(18, 6, paste("R sq.=", round(tmp$r.squared,4)))
+```
+
+# Task 8
+```{r}
+library(MATH4753CURR0011)
+myScatterhist(x = spruce.df$BHDiameter, y=spruce.df$Height, xlab = "BHDiameter", ylab = "Height")
+```
+
+
+
+# Extra
