@@ -3,4 +3,4 @@
 export(getData)
 export(myScatterhist)
 export(mybin)
-export(myf)
+export(pareto)

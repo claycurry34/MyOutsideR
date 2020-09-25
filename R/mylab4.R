@@ -7,8 +7,7 @@
 #'
 #' @return a histogram plotting values of Y with respect to X
 #' @export
-#'
-#' @examples
+
 
 myScatterhist = function(x, y, xlab="", ylab=""){
   zones=matrix(c(2,0,1,3), ncol=2, byrow=TRUE)

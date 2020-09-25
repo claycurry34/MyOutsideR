@@ -23,3 +23,64 @@ Getting Working Directory:
 getwd()
 ```
 
+# Task 2
+
+## Subtask 3
+
+### simulate a binomial experiment where n=10,p=0.7, and Y=number of successes.
+
+
+```{r, cached=TRUE}
+## sampling function
+library(MATH4753CURR0011)
+mybin(n = 10, iter = 10, p = .7)
+```
+10 iterations
+
+## Subtask 4
+
+### Record the plots for each of the following (Use color)
+
+
+```{r}
+## sampling function
+mybin(n = 10, iter = 100, p = .7)
+```
+100 iterations
+
+```{r}
+## sampling function
+mybin(n = 10, iter = 200, p = .7)
+```
+200 iterations
+
+```{r}
+## sampling function
+mybin(n = 10, iter = 500, p = .7)
+```
+500 iterations
+
+```{r}
+## sampling function
+mybin(n = 10, iter = 1000, p = .7)
+```
+1000 iterations
+
+```{r}
+## sampling function
+mybin(n = 10, iter = 10000, p = .7)
+```
+10,000 iterations
+
+## Subtask 5
+
+### Verify that each value in the table is approximately correct using dbinom()
+```{r, cached=TRUE, collapse=FALSE}
+bin = dbinom(x = 0:10, size = 10, prob = 0.7)
+sim = mybin(iter = 10000, n = 10, p = 0.7, mkplot = FALSE)
+sim = with(data.frame(sim), Freq)
+
+sd(bin - sim)
+```
+Notice in the above code that the standard deviation of 10,000 iterations from the **expected value** of the binomial distribution is `r round(sd(bin - sim),4)`, essentially 0.
+
