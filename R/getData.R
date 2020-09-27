@@ -13,7 +13,7 @@
 #' \dontrun{
 #' v<-getData()
 #' }
-getData <- function(dird = "C:/Dev/R_Projects/MATH4753CURR0011/Data/K25936_Downloads/Excel/")
+getData <- function(dird = "C:/Dev/R_Projects/MATH4753CURR0011/MyData/0-XLS/")
 {
   files = list.files(dird)
   myconvert = function(xl) {

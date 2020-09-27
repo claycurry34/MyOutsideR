@@ -4,9 +4,7 @@
 \alias{getData}
 \title{Reads in data from all Excel Files}
 \usage{
-getData(
-  dird = "C:/Dev/R_Projects/MATH4753CURR0011/Data/K25936_Downloads/Excel/"
-)
+getData(dird = "C:/Dev/R_Projects/MATH4753CURR0011/MyData/0-XLS/")
 }
 \arguments{
 \item{dird}{this is the directory structure as a string}
