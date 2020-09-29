@@ -1,0 +1,154 @@
+---
+title: "Project 1"
+author: "Clay Curry"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    code_folding: show
+    csl: biomed-central.csl
+    df_print: paged
+    fig_caption: yes
+    fig_height: 6
+    fig_width: 7
+    number_sections: yes
+    theme: journal
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes
+    toc_depth: '4'
+  pdf_document:
+    df_print: kable
+    <!-- fig_caption: yes
+    fig_height: 6
+    fig_width: 7 -->
+    highlight: tango
+    toc: yes
+    toc_depth: 4
+---
+#bibliography: project.bib
+abstract: This project is all about analysing the SWDEFECTS file using R and probability theory. You will need to change the headings to reflect the nature of the project intentions. Re write this abstract as the last thing you do.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction to the data
+
+## Data and variables(see MS pg. 77,125)
+Rigorous code evaluation in software development is critical for launching programs that with as little bugs and vulnerabilities as possible. As computer systems evolve, however, software engineers face the daunting task of having to retest their code for an infinitely growing number of additional vulnerabilities that new technology brings. In many ways, the cost of supporting rigorous code evaluations can grow to be much larger than the rewards of the software itself. When software engineers are hired to assess code, it is therefore necessary to devise systematic methods of triaging code and perform statistical analysis on their efficacy.
+
+Certain guidelines were implemented by researchers to test various methods of triaging code. In the form of algorithms, these triaging methods were applied to 498 modules of code. The SWDEFECTS file contains a variable that corresponds to each method. When the method predicts a defect, the corresponding variable's value is "yes", and "no" otherwise. The accuracy of each method was determined by a complete evaluation of the code. The methods were evalued by computing several probability measures, called accuracy, detection rate, false alarm rate, and precision. 
+
+## Summary Table 
+
+Create the summary table (TABLE SIA3.2) found on page 125.
+
+```{r, echo=FALSE}
+algoTabC1 = c("Algorithm", 
+              "Predicts Defects", "")
+algoTabC2 = c("No", 
+            "Yes", 
+             "")
+algoTabC3 = c("False", 
+                    "a",
+                    "c")
+algoTabC4 = c("True", 
+                    "b",
+                    "d")
+
+algoSummaryTable = matrix(data = c(algoTabC1,algoTabC2,algoTabC3,algoTabC4), nrow=3, ncol = 4)
+knitr::kable(algoSummaryTable, caption = "Summary Table for Evaluating Defect Prediction Algorithms", col.names = c("","","Has Defects",""))
+```
+
+
+$$
+\text{Accuracy: } \ \ \ P(\text{Algorithm is correct}) =\frac{(a + d)}{(a + b + c + d)}
+$$
+
+$$
+\text{Detection Rate: } \ \ \ P(\text{predict defect | module has defect}) =\frac{d}{(b + d)}
+$$
+
+$$
+\text{False alarm Rate: } \ \ \ P(\text{predict defect | module has no defect}) =\frac{c}{(a + c)}
+$$
+
+$$
+\text{Precision: } \ \ \ P(\text{module has defect | predict defect}) =\frac{d}{(c + d)}
+$$
+
+# R functions
+Using the above definitions make R functions that will create the required probabilities, please remove `eval=FALSE` when creating the functions :
+
+```{r accuracy, eval=FALSE}
+acc=function(a,b,c,d)
+{
+  
+}
+```
+
+```{r detecton, eval=FALSE}
+detect=function(b,d)
+{
+  
+}
+```
+
+```{r alarm, eval=FALSE}
+falarm=function(a,c)
+{
+  
+}
+```
+
+```{r precision, eval=FALSE}
+prec=function(c,d)
+{
+  
+}
+```
+
+
+# Create the tables in Figure SIA3.1
+
+The tables do not have to be formatted exactly as those in the book. Have the functions produce a suitable barplot also. 
+
+As a guide and help -- see code below
+
+```{r }
+swd=read.csv("swdefects.csv")
+head(swd)
+tab=with(swd, table(predict.loc.50,defect))
+barplot(tab, beside=TRUE, leg=TRUE)
+tab2=addmargins(tab)
+tab2
+```
+
+
+
+
+
+# Create the corrected table on page 127 (there are mistakes in it), TABLE SIA3.3
+
+Using the functions you have made, create the corrected table (SIA3.3) in an R chunk.
+ 
+You can call this table `tab3`
+
+Now create a function `mybar()`that will have as its input variables
+
+>
+    1. tab ( this will be a n by m table) - like `tab3`
+    2. acc ( accuracy of the decimal output ) -- like `acc=4` for example
+    
+Please note that **acc** is NOT the function made earlier!
+    
+The function will need to create two things
+
+>
+    1. A barplot of the table
+    2. Commandline output in the form of a list containing the table
+    
+    
+<!-- ![](barplot.png){ width=70% } -->
+
