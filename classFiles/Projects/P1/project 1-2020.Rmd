@@ -35,14 +35,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction to the data
 
-## Data and variables(see MS pg. 77,125)
+## Data and Variables (see MS pg. 77,125)
 Rigorous code evaluation in software development is critical for launching programs that with as little bugs and vulnerabilities as possible. As computer systems evolve, however, software engineers face the daunting task of having to retest their code for an infinitely growing number of additional vulnerabilities that new technology brings. In many ways, the cost of supporting rigorous code evaluations can grow to be much larger than the rewards of the software itself. When software engineers are hired to assess code, it is therefore necessary to devise systematic methods of triaging code and perform statistical analysis on their efficacy.
 
 Certain guidelines were implemented by researchers to test various methods of triaging code. In the form of algorithms, these triaging methods were applied to 498 modules of code. The SWDEFECTS file contains a variable that corresponds to each method. When the method predicts a defect, the corresponding variable's value is "yes", and "no" otherwise. The accuracy of each method was determined by a complete evaluation of the code. The methods were evalued by computing several probability measures, called accuracy, detection rate, false alarm rate, and precision. 
 
 ## Summary Table 
 
-Create the summary table (TABLE SIA3.2) found on page 125.
+TABLE SIA3.2 found on page 125.
 
 ```{r, echo=FALSE}
 algoTabC1 = c("Algorithm", 
