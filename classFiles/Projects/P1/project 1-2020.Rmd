@@ -26,8 +26,6 @@ output:
     toc: yes
     toc_depth: 4
 ---
-#bibliography: project.bib
-abstract: This project is all about analysing the SWDEFECTS file using R and probability theory. You will need to change the headings to reflect the nature of the project intentions. Re write this abstract as the last thing you do.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -84,28 +82,28 @@ Using the above definitions make R functions that will create the required proba
 ```{r accuracy, eval=FALSE}
 acc=function(a,b,c,d)
 {
-  
+  (a+d)/(a+b+c+d)
 }
 ```
 
 ```{r detecton, eval=FALSE}
 detect=function(b,d)
 {
-  
+  d/(b+d)
 }
 ```
 
 ```{r alarm, eval=FALSE}
 falarm=function(a,c)
 {
-  
+  c/(a+c)
 }
 ```
 
 ```{r precision, eval=FALSE}
 prec=function(c,d)
 {
-  
+  d/(c+d)
 }
 ```
 
@@ -116,10 +114,35 @@ The tables do not have to be formatted exactly as those in the book. Have the fu
 
 As a guide and help -- see code below
 
+
+```{r cache=TRUE, include=FALSE}
+SWDEFECTS <- read.csv("SWDEFECTS.csv")
+colnames(SWDEFECTS)[colnames(SWDEFECTS)=="predict.loc.50"]="PREDICT_LOC"
+colnames(SWDEFECTS)[colnames(SWDEFECTS)=="predict.vg.10"]="PREDICT_VG"
+colnames(SWDEFECTS)[colnames(SWDEFECTS)=="predict.evg.14.5"]="PREDICT_EVG"
+colnames(SWDEFECTS)[colnames(SWDEFECTS)=="predict.ivg.9.2"]="PREDICT_IVG"
+```
+
+```{r cache=TRUE}
+tab1 = with(SWDEFECTS, table(PREDICT_LOC, defect))
+tab2 = with(SWDEFECTS, table(PREDICT_VG, defect))
+tab3 = with(SWDEFECTS, table(PREDICT_EVG, defect))
+tab4 = with(SWDEFECTS, table(PREDICT_IVG, defect))
+
+addmargins(tab1)
+addmargins(tab2)
+addmargins(tab3)
+addmargins(tab4)
+```
+
+
+**Probability Measures for Evaluating Defect Prediction Algorithms**
+
+
+
 ```{r }
-swd=read.csv("swdefects.csv")
-head(swd)
-tab=with(swd, table(predict.loc.50,defect))
+head(SWDEFECTS)
+tab=with(SWDEFECTS, table(PREDICT_LOC,defect))
 barplot(tab, beside=TRUE, leg=TRUE)
 tab2=addmargins(tab)
 tab2
@@ -128,27 +151,38 @@ tab2
 
 
 
-
 # Create the corrected table on page 127 (there are mistakes in it), TABLE SIA3.3
 
-Using the functions you have made, create the corrected table (SIA3.3) in an R chunk.
- 
-You can call this table `tab3`
+```{r}
+genRow = function(tab)
+{
+  df = data.frame(tab)
+  a = df[df[1]=="no" & df[2]=="FALSE",3]
+  b = df[df[1]=="no" & df[2]=="TRUE",3]
+  c = df[df[1]=="yes" & df[2]=="FALSE",3]
+  d = df[df[1]=="yes" & df[2]=="TRUE",3]
+  AC = (a+d)/(a+b+c+d)
+  DR = d/(b+d)
+  FAR = c/(a+c)
+  PR = d/(c+d)
+  
+  c(AC,DR, FAR, PR)
+}
+mybar = function(tab, acc = 3)
+{
+  barplot(tab, col = 1:4, beside = TRUE, legend.text = c("Lines of Code", "Cyclomatic Complexity", "Essential Complexity", "Design Complexity"), main = "Probability Measures for Evaluating Defect Predition Algorithms")
+  
+  tab = round(tab, acc)
+  df = data.frame(tab, row.names = c("Lines of Code", "Cyclomatic Complexity", "Essential Complexity", "Design Complexity"))
+  colnames(df) = c("Accuracy", "Detection Rate", "False Alarm Rate", "Precision")
+  list(df)
+}
 
-Now create a function `mybar()`that will have as its input variables
+mat = matrix(c(genRow(tab1), genRow(tab2), genRow(tab3), genRow(tab4)), nrow = 4, ncol = 4, byrow = TRUE)
 
->
-    1. tab ( this will be a n by m table) - like `tab3`
-    2. acc ( accuracy of the decimal output ) -- like `acc=4` for example
-    
-Please note that **acc** is NOT the function made earlier!
-    
-The function will need to create two things
+mat
 
->
-    1. A barplot of the table
-    2. Commandline output in the form of a list containing the table
-    
-    
-<!-- ![](barplot.png){ width=70% } -->
+mybar(mat)
+```
 
+    
