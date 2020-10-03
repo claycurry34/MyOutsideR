@@ -37,3 +37,8 @@ $$
 3. Calculate probabilities
 4. Create a function that calculates and displays areas
 5. Add this function to a package
+
+# Using and Understanding R density functions
+In most practical settings, there are 7 continuous probability distributions.
+
+In R, there are 4 important functions associated with each distribution. Below are the four in the case of a normal distribution.
