@@ -115,3 +115,33 @@ n <- n + xlab("X") + ylab("Density")
 n
 ```
 
+# Task 3
+
+	We will now study the gamma distribution. This has two parameters, shape (>0) and scale (>0). You will use dgamma() and pgamma()
+	Notice that the random variable Y takes only positive values.
+	On the one plotting surface overlay the following three plots (NB – Don’t use layout)
+	
+---
+	
+Y∼Gamma(shape=1,scale=1)
+
+Y∼Gamma(shape=3,scale=1)
+
+Y∼Gamma(shape=5,scale=1)
+
+
+```{r}
+curve(dgamma(x,shape=1,scale=1),xlim=c(0,10),ylim=c(0,1),col="Red",lwd=2,
+ylab="Gamma density", main="Beta=1")
+text(x=1,y=0.8,paste("alpha=",1))
+curve(dgamma(x,shape=3,scale=1),xlim=c(0,10),ylim=c(0,1),add=TRUE,lwd=2)
+text(x=2.2,y=0.3, paste("alpha=",3))
+curve(dgamma(x,shape=5,scale=1),xlim=c(0,10),ylim=c(0,1),add=TRUE, col="Blue",lwd=2)
+text(x=6,y=0.2,paste("alpha=",5))
+```
+
+
+Plot the following regions and probabilities in R
+	Y~Gamma(shape=3,scale=2),P(2<Y<5)
+	Y∼Gamma(shape=6,scale=3),P(1≤Y≤4)
+	Y∼Gamma(shape=2,scale=4),P(3≤Y<6)
