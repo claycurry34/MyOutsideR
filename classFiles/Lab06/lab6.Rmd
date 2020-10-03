@@ -10,7 +10,108 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Task 1
+Getting the directory
 ```{r}
 getwd()
+```
+
+# Task 2
+Creating 4 plots with bounds at .001 < q < .999
+```{r}
+layout(matrix(1:4, nr=2,nc=2))
+
+curve(dnorm(x, mean=10,sd=4),
+      xlim=c(qnorm(.001, mean = 10, sd = 4),
+             qnorm(.999, mean = 10, sd = 4)))
+
+curve(dnorm(x, mean=10,sd=2),
+      xlim=c(qnorm(.001, mean = 10, sd = 2),
+             qnorm(.999, mean = 10, sd = 2)))
+
+curve(dnorm(x, mean=5,sd=10),
+      xlim=c(qnorm(.001, mean = 5, sd = 10),
+             qnorm(.999, mean = 5, sd = 10)))
+
+curve(dnorm(x, mean=5,sd=1/2),      
+      xlim=c(qnorm(.001, mean = 5, sd = 1/2),
+             qnorm(.999, mean = 5, sd = 1/2)))
+
+```
+
+---
+
+Now things get interesting
+
+```{r cached=TRUE}
+library(ggplot2)
+```
+
+
+---
+
+plotting	Y∼N(0,1),P(Y≥2)
+
+```{r}
+normargs <- list(mean = 0, sd = 1)
+
+n <- ggplot(data.frame(x = c(-2,4)), aes(x)) + 
+  stat_function(fun = dnorm, args = normargs , geom = "area", col = "black") 
+  
+
+n <- n + stat_function(fun = dnorm, args = normargs, geom = "area", fill = "green", alpha = 2,xlim = c(2,4)) 
+
+n <- n + xlab("X") + ylab("Density")
+n
+```
+
+
+---
+
+plotting	Y∼N(μ=4,σ=2),P(1≤Y<5)
+
+```{r}
+normargs <- list(mean = 4, sd = 2)
+
+n <- ggplot(data.frame(x = c(-2,8)), aes(x)) + 
+  stat_function(fun = dnorm, args = normargs , geom = "area", col = "black") 
+  
+
+n <- n + stat_function(fun = dnorm, args = normargs, geom = "area", fill = "green", alpha = 2,xlim = c(1,5)) 
+
+n <- n + xlab("X") + ylab("Density")
+n
+```
+
+---
+
+plotting	Y∼N(μ=10,σ=4),P(Y<10)
+
+```{r}
+normargs <- list(mean = 10, sd = 4)
+
+n <- ggplot(data.frame(x = c(-2,14)), aes(x)) + 
+  stat_function(fun = dnorm, args = normargs , geom = "area", col = "black") 
+  
+
+n <- n + stat_function(fun = dnorm, args = normargs, geom = "area", fill = "green", alpha = 2,xlim = c(-2,10)) 
+
+n <- n + xlab("X") + ylab("Density")
+n
+```
+
+---
+
+plotting	Y∼N(μ=-2,σ=1/2),P(-3<Y≤ -2)
+```{r}
+normargs <- list(mean = -2, sd = 1/2)
+
+n <- ggplot(data.frame(x = c(-4,0.5)), aes(x)) + 
+  stat_function(fun = dnorm, args = normargs , geom = "area", col = "black") 
+  
+
+n <- n + stat_function(fun = dnorm, args = normargs, geom = "area", fill = "green", alpha = 2,xlim = c(-3,-2)) 
+
+n <- n + xlab("X") + ylab("Density")
+n
 ```
 
