@@ -1,0 +1,147 @@
+---
+title: "lab6"
+author: "Clay Curry"
+date: "10/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Task 1
+Getting the directory
+```{r}
+getwd()
+```
+
+# Task 2
+Creating 4 plots with bounds at .001 < q < .999
+```{r}
+layout(matrix(1:4, nr=2,nc=2))
+
+curve(dnorm(x, mean=10,sd=4),
+      xlim=c(qnorm(.001, mean = 10, sd = 4),
+             qnorm(.999, mean = 10, sd = 4)))
+
+curve(dnorm(x, mean=10,sd=2),
+      xlim=c(qnorm(.001, mean = 10, sd = 2),
+             qnorm(.999, mean = 10, sd = 2)))
+
+curve(dnorm(x, mean=5,sd=10),
+      xlim=c(qnorm(.001, mean = 5, sd = 10),
+             qnorm(.999, mean = 5, sd = 10)))
+
+curve(dnorm(x, mean=5,sd=1/2),      
+      xlim=c(qnorm(.001, mean = 5, sd = 1/2),
+             qnorm(.999, mean = 5, sd = 1/2)))
+
+```
+
+---
+
+Now things get interesting
+
+```{r cached=TRUE}
+library(ggplot2)
+```
+
+
+---
+
+plotting	Y∼N(0,1),P(Y≥2)
+
+```{r}
+normargs <- list(mean = 0, sd = 1)
+
+n <- ggplot(data.frame(x = c(-2,4)), aes(x)) + 
+  stat_function(fun = dnorm, args = normargs , geom = "area", col = "black") 
+  
+
+n <- n + stat_function(fun = dnorm, args = normargs, geom = "area", fill = "green", alpha = 2,xlim = c(2,4)) 
+
+n <- n + xlab("X") + ylab("Density")
+n
+```
+
+
+---
+
+plotting	Y∼N(μ=4,σ=2),P(1≤Y<5)
+
+```{r}
+normargs <- list(mean = 4, sd = 2)
+
+n <- ggplot(data.frame(x = c(-2,8)), aes(x)) + 
+  stat_function(fun = dnorm, args = normargs , geom = "area", col = "black") 
+  
+
+n <- n + stat_function(fun = dnorm, args = normargs, geom = "area", fill = "green", alpha = 2,xlim = c(1,5)) 
+
+n <- n + xlab("X") + ylab("Density")
+n
+```
+
+---
+
+plotting	Y∼N(μ=10,σ=4),P(Y<10)
+
+```{r}
+normargs <- list(mean = 10, sd = 4)
+
+n <- ggplot(data.frame(x = c(-2,14)), aes(x)) + 
+  stat_function(fun = dnorm, args = normargs , geom = "area", col = "black") 
+  
+
+n <- n + stat_function(fun = dnorm, args = normargs, geom = "area", fill = "green", alpha = 2,xlim = c(-2,10)) 
+
+n <- n + xlab("X") + ylab("Density")
+n
+```
+
+---
+
+plotting	Y∼N(μ=-2,σ=1/2),P(-3<Y≤ -2)
+```{r}
+normargs <- list(mean = -2, sd = 1/2)
+
+n <- ggplot(data.frame(x = c(-4,0.5)), aes(x)) + 
+  stat_function(fun = dnorm, args = normargs , geom = "area", col = "black") 
+  
+
+n <- n + stat_function(fun = dnorm, args = normargs, geom = "area", fill = "green", alpha = 2,xlim = c(-3,-2)) 
+
+n <- n + xlab("X") + ylab("Density")
+n
+```
+
+# Task 3
+
+	We will now study the gamma distribution. This has two parameters, shape (>0) and scale (>0). You will use dgamma() and pgamma()
+	Notice that the random variable Y takes only positive values.
+	On the one plotting surface overlay the following three plots (NB – Don’t use layout)
+	
+---
+	
+Y∼Gamma(shape=1,scale=1)
+
+Y∼Gamma(shape=3,scale=1)
+
+Y∼Gamma(shape=5,scale=1)
+
+
+```{r}
+curve(dgamma(x,shape=1,scale=1),xlim=c(0,10),ylim=c(0,1),col="Red",lwd=2,
+ylab="Gamma density", main="Beta=1")
+text(x=1,y=0.8,paste("alpha=",1))
+curve(dgamma(x,shape=3,scale=1),xlim=c(0,10),ylim=c(0,1),add=TRUE,lwd=2)
+text(x=2.2,y=0.3, paste("alpha=",3))
+curve(dgamma(x,shape=5,scale=1),xlim=c(0,10),ylim=c(0,1),add=TRUE, col="Blue",lwd=2)
+text(x=6,y=0.2,paste("alpha=",5))
+```
+
+
+Plot the following regions and probabilities in R
+	Y~Gamma(shape=3,scale=2),P(2<Y<5)
+	Y∼Gamma(shape=6,scale=3),P(1≤Y≤4)
+	Y∼Gamma(shape=2,scale=4),P(3≤Y<6)
